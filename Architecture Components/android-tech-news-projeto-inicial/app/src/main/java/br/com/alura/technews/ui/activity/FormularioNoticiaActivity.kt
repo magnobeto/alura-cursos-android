@@ -4,11 +4,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import br.com.alura.technews.R
 import br.com.alura.technews.database.AppDatabase
 import br.com.alura.technews.model.Noticia
+import br.com.alura.technews.repository.FalhaResource
 import br.com.alura.technews.repository.NoticiaRepository
+import br.com.alura.technews.repository.SucessoResource
 import br.com.alura.technews.ui.activity.extensions.mostraErro
+import br.com.alura.technews.ui.viewmodel.FormularioNoticiaViewModel
+import br.com.alura.technews.ui.viewmodel.factory.FormularioNoticiaViewModelFactory
 import kotlinx.android.synthetic.main.activity_formulario_noticia.*
 
 private const val TITULO_APPBAR_EDICAO = "Editando notícia"
@@ -22,6 +28,10 @@ class FormularioNoticiaActivity : AppCompatActivity() {
     }
     private val repository by lazy {
         NoticiaRepository(AppDatabase.getInstance(this).noticiaDAO)
+    }
+    private val viewModel by lazy {
+        val factory = FormularioNoticiaViewModelFactory(repository)
+        ViewModelProvider(this, factory).get(FormularioNoticiaViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,11 +89,21 @@ class FormularioNoticiaActivity : AppCompatActivity() {
                 quandoFalha = falha
             )
         } else {
-            repository.salva(
+            viewModel.salva(noticia).observe(this, Observer { resource ->
+                when (resource) {
+                    is SucessoResource -> {
+                        finish()
+                    }
+                    is FalhaResource -> {
+                        mostraErro(MENSAGEM_ERRO_SALVAR)
+                    }
+                }
+            })
+            /*repository.salva(
                 noticia,
                 quandoSucesso = sucesso,
                 quandoFalha = falha
-            )
+            )*/
         }
     }
 
