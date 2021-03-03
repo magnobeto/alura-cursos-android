@@ -1,5 +1,6 @@
 package br.com.alura.technews.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.alura.technews.asynctask.BaseAsyncTask
@@ -16,14 +17,13 @@ class NoticiaRepository(
 
     fun buscaTodos(): LiveData<Resource<List<Noticia>?>> {
         val atualizaListaNoticias: (List<Noticia>) -> Unit = {
-            noticiasEncontradas.value = Resource(dado = it)
+            noticiasEncontradas.value = SucessoResource(dado = it)
         }
         buscaInterno(quandoSucesso = atualizaListaNoticias)
         buscaNaApi(quandoSucesso = atualizaListaNoticias,
             quandoFalha = { erro ->
-                val resourceAtual = noticiasEncontradas.value
-                val resourceDeFalha = criaResourceDeFalha<List<Noticia>?>(resourceAtual, erro)
-                noticiasEncontradas.value = resourceDeFalha
+                val resourceDeFalha = erro?.let { FalhaResource<List<Noticia>?>(it) }
+                noticiasEncontradas.value = resourceDeFalha!!
             })
         return noticiasEncontradas
     }
