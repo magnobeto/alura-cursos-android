@@ -9,9 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import br.com.alura.technews.R
 import br.com.alura.technews.database.AppDatabase
 import br.com.alura.technews.model.Noticia
-import br.com.alura.technews.repository.FalhaResource
 import br.com.alura.technews.repository.NoticiaRepository
-import br.com.alura.technews.repository.SucessoResource
 import br.com.alura.technews.ui.activity.extensions.mostraErro
 import br.com.alura.technews.ui.viewmodel.FormularioNoticiaViewModel
 import br.com.alura.technews.ui.viewmodel.factory.FormularioNoticiaViewModelFactory
@@ -73,14 +71,11 @@ class FormularioNoticiaActivity : AppCompatActivity() {
     }
 
     private fun salva(noticia: Noticia) {
-        viewModel.salva(noticia).observe(this, Observer { resource ->
-            when (resource) {
-                is SucessoResource -> {
-                    finish()
-                }
-                is FalhaResource -> {
-                    mostraErro(MENSAGEM_ERRO_SALVAR)
-                }
+        viewModel.salva(noticia).observe(this, Observer {
+            if (it.erro == null) {
+                finish()
+            } else {
+                mostraErro(MENSAGEM_ERRO_SALVAR)
             }
         })
     }
