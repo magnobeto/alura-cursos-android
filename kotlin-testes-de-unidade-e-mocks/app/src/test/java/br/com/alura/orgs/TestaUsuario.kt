@@ -33,7 +33,7 @@ class TestaUsuario {
     }
 
     @Test
-    fun `GIVEN a user with invalid password WHEN user is registering itself THEN a error occurs during validation` () {
+    fun `GIVEN a user with password with less than six chars WHEN user is registering itself THEN a error occurs during validation` () {
         val usuarioInvalido = Usuario(
             id = "Magno",
             email = "magno@gmail.com",

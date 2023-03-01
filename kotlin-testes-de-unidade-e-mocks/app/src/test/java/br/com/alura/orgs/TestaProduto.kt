@@ -21,11 +21,37 @@ class TestaProduto {
     }
 
     @Test
-    fun `GIVEN a product with invalid value price WHEN user is registering a product THEN a error occurs during validation`() {
+    fun `GIVEN a product with invalid value price greater than a hundred WHEN user is registering a product THEN a error occurs during validation`() {
         val produtoInvalido = Produto(
             nome = "Banana",
             descricao = "Prata",
             valor = BigDecimal("105.59")
+        )
+
+        val valorEhValido = produtoInvalido.valorValido
+
+        Assert.assertEquals(false, valorEhValido)
+    }
+
+    @Test
+    fun `GIVEN a product with value price less than zero WHEN user is registering a product THEN a error occurs during validation`() {
+        val produtoInvalido = Produto(
+            nome = "Banana",
+            descricao = "Prata",
+            valor = BigDecimal("-105.59")
+        )
+
+        val valorEhValido = produtoInvalido.valorValido
+
+        Assert.assertEquals(false, valorEhValido)
+    }
+
+    @Test
+    fun `GIVEN a product with value price equals zero WHEN user is registering a product THEN a error occurs during validation`() {
+        val produtoInvalido = Produto(
+            nome = "Banana",
+            descricao = "Prata",
+            valor = BigDecimal("0.0")
         )
 
         val valorEhValido = produtoInvalido.valorValido
