@@ -19,4 +19,17 @@ class TestaProduto {
 
         Assert.assertEquals(true, valorEhValido)
     }
+
+    @Test
+    fun `GIVEN a product with invalid value price WHEN user is registering a product THEN a error occurs during validation`() {
+        val produtoInvalido = Produto(
+            nome = "Banana",
+            descricao = "Prata",
+            valor = BigDecimal("105.59")
+        )
+
+        val valorEhValido = produtoInvalido.valorValido
+
+        Assert.assertEquals(false, valorEhValido)
+    }
 }
