@@ -17,7 +17,7 @@ class TestaProduto {
 
         val valorEhValido = produtoValido.valorValido
 
-        Assert.assertEquals(true, valorEhValido)
+        Assert.assertTrue(valorEhValido)
     }
 
     @Test
@@ -30,7 +30,7 @@ class TestaProduto {
 
         val valorEhValido = produtoInvalido.valorValido
 
-        Assert.assertEquals(false, valorEhValido)
+        Assert.assertFalse(valorEhValido)
     }
 
     @Test
@@ -43,7 +43,7 @@ class TestaProduto {
 
         val valorEhValido = produtoInvalido.valorValido
 
-        Assert.assertEquals(false, valorEhValido)
+        Assert.assertFalse(valorEhValido)
     }
 
     @Test
@@ -56,6 +56,6 @@ class TestaProduto {
 
         val valorEhValido = produtoInvalido.valorValido
 
-        Assert.assertEquals(false, valorEhValido)
+        Assert.assertFalse(valorEhValido)
     }
 }

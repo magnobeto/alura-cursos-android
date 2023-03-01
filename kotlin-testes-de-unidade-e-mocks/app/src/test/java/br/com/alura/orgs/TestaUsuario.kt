@@ -16,7 +16,7 @@ class TestaUsuario {
 
         val usuarioEhValido = usuarioValido.ehValido()
 
-        Assert.assertEquals(true, usuarioEhValido)
+        Assert.assertTrue(usuarioEhValido)
     }
 
     @Test
@@ -29,7 +29,7 @@ class TestaUsuario {
 
         val usuarioEhValido = usuarioInvalido.ehValido()
 
-        Assert.assertEquals(false, usuarioEhValido)
+        Assert.assertFalse(usuarioEhValido)
     }
 
     @Test
@@ -42,6 +42,6 @@ class TestaUsuario {
 
         val usuarioEhValido = usuarioInvalido.ehValido()
 
-        Assert.assertEquals(false, usuarioEhValido)
+        Assert.assertFalse(usuarioEhValido)
     }
 }
