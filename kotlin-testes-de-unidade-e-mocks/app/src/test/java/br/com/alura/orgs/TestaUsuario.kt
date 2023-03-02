@@ -1,7 +1,8 @@
 package br.com.alura.orgs
 
 import br.com.alura.orgs.model.Usuario
-import org.junit.Assert
+import org.amshove.kluent.shouldBeFalse
+import org.amshove.kluent.shouldBeTrue
 import org.junit.Test
 
 class TestaUsuario {
@@ -16,7 +17,7 @@ class TestaUsuario {
 
         val usuarioEhValido = usuarioValido.ehValido()
 
-        Assert.assertTrue(usuarioEhValido)
+        usuarioEhValido.shouldBeTrue()
     }
 
     @Test
@@ -29,7 +30,7 @@ class TestaUsuario {
 
         val usuarioEhValido = usuarioInvalido.ehValido()
 
-        Assert.assertFalse(usuarioEhValido)
+        usuarioEhValido.shouldBeFalse()
     }
 
     @Test
@@ -42,6 +43,6 @@ class TestaUsuario {
 
         val usuarioEhValido = usuarioInvalido.ehValido()
 
-        Assert.assertFalse(usuarioEhValido)
+        usuarioEhValido.shouldBeFalse()
     }
 }
