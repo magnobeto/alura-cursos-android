@@ -67,4 +67,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     testImplementation 'org.amshove.kluent:kluent-android:1.68'
+    testImplementation "io.mockk:mockk-android:1.12.3"
 }
