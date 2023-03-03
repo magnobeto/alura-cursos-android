@@ -2,9 +2,8 @@ package br.com.alura.orgs.database.repository
 
 import br.com.alura.orgs.database.dao.UsuarioDao
 import br.com.alura.orgs.model.Usuario
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 
 class UsuarioRepositoryTest {
@@ -13,34 +12,33 @@ class UsuarioRepositoryTest {
     private val usuarioRepository = UsuarioRepository(dao)
 
     @Test
-    fun salva() {
+    fun salva() = runTest {
         val usuario = Usuario(
             id = "Beto",
             email = "magno@gmail.com",
             senha = "123456"
         )
 
-        every {
+        coEvery {
             dao.salva(usuario)
         }.returns(Unit)
 
         usuarioRepository.salva(usuario)
 
-        verify {
+        coVerify {
             dao.salva(usuario)
         }
     }
 
     @Test
-    fun autentica() {
+    fun autentica() = runTest {
         val usuario = Usuario(
             id = "Beto",
             email = "magno@gmail.com",
             senha = "123456"
         )
 
-
-        every {
+        coEvery {
             dao.autentica(
                 usuarioId = usuario.id,
                 senha = usuario.senha
@@ -52,10 +50,11 @@ class UsuarioRepositoryTest {
             senha = usuario.senha
         )
 
-        verify {
+        coVerify {
             dao.autentica(
                 usuarioId = usuario.id,
                 senha = usuario.senha
-            )        }
+            )
+        }
     }
 }

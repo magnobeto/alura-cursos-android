@@ -6,9 +6,9 @@ import br.com.alura.orgs.model.Usuario
 class UsuarioRepository(
     private val dao: UsuarioDao
 ) {
-    fun salva(usuario: Usuario) = dao.salva(usuario)
+    suspend fun salva(usuario: Usuario) = dao.salva(usuario)
 
-    fun autentica(usuarioId: String, senha: String) = dao.autentica(usuarioId, senha)
+    suspend fun autentica(usuarioId: String, senha: String) = dao.autentica(usuarioId, senha)
 
-    suspend fun buscaPorId(usuarioId: String) = dao.buscaPorId(usuarioId)
+    fun buscaPorId(usuarioId: String) = dao.buscaPorId(usuarioId)
 }
